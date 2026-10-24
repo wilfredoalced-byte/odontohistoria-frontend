@@ -60,3 +60,81 @@ h2 {
   padding: 12px 16px;
   border-radius: 8px;
 }
+/* ---------- Sub-paso 3.4: formulario y botones ---------- */
+.acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border: 1px solid #c9d6d1;
+  border-radius: 8px;
+  background: white;
+  color: #1f2d2a;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #eef5f2;
+}
+
+.btn-principal {
+  background: #3a9d6e;
+  border-color: #3a9d6e;
+  color: white;
+}
+
+.btn-principal:hover {
+  background: #2f8459;
+}
+
+.btn-peligro {
+  color: #c1443d;
+  border-color: #e6bcb8;
+}
+
+.btn-peligro:hover {
+  background: #fbebe9;
+}
+
+.formulario {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-top: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.formulario h3 {
+  margin: 0 0 16px;
+}
+
+.formulario label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.formulario input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid #c9d6d1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.formulario input:focus {
+  outline: 2px solid #3a9d6e;
+  border-color: transparent;
+}
+
+.botones {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
