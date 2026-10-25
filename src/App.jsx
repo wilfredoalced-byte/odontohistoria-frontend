@@ -1,122 +1,113 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import {
+  obtenerPacientes,
+  crearPaciente,
+  actualizarPaciente,
+  eliminarPaciente,
+} from './api';
+import PacientesTabla from './components/PacientesTabla';
+import PacienteForm from './components/PacienteForm';
+import './App.css';
 
+// OPERACIÓN 11: componente principal del panel, con estado y efectos de React
 function App() {
-  const [count, setCount] = useState(0)
+  const [pacientes, setPacientes] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState('');
+  const [errorAccion, setErrorAccion] = useState('');
+  const [editando, setEditando] = useState(null);
+  const [busqueda, setBusqueda] = useState('');
+
+  // Al abrir la página: pide los pacientes al backend
+  useEffect(() => {
+    obtenerPacientes()
+      .then(setPacientes)
+      .catch(() =>
+        setError('No se pudo conectar con el backend. Revisa que esté corriendo en el puerto 3000.')
+      )
+      .finally(() => setCargando(false));
+  }, []);
+
+  // OPERACIÓN 11: dato derivado del estado, la lista filtrada por la búsqueda
+  const pacientesFiltrados = pacientes.filter((p) =>
+    (p.nombre || '').toLowerCase().includes(busqueda.toLowerCase())
+  );
+
+  // CREATE o UPDATE, según haya un paciente en edición
+  async function guardar(datos) {
+    if (editando) {
+      const actualizado = await actualizarPaciente(editando.id, datos);
+      setPacientes(pacientes.map((p) => (p.id === actualizado.id ? actualizado : p)));
+      setEditando(null);
+    } else {
+      const nuevo = await crearPaciente(datos);
+      setPacientes([...pacientes, nuevo]);
+    }
+    setErrorAccion('');
+  }
+
+  // DELETE, con confirmación
+  async function borrar(paciente) {
+    if (!window.confirm(`¿Eliminar a ${paciente.nombre}?`)) return;
+    try {
+      await eliminarPaciente(paciente.id);
+      setPacientes(pacientes.filter((p) => p.id !== paciente.id));
+      if (editando && editando.id === paciente.id) setEditando(null);
+      setErrorAccion('');
+    } catch (e) {
+      setErrorAccion(e.message);
+    }
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="contenedor">
+      <header className="encabezado">
+        <h1>OdontoHistoria IA</h1>
+        <p>Panel de gestión · Clínica Fassiara</p>
+      </header>
 
-      <div className="ticks"></div>
+      <main>
+        <h2>Pacientes</h2>
+        {cargando && <p className="aviso">Cargando pacientes...</p>}
+        {error && <p className="error">{error}</p>}
+        {errorAccion && <p className="error">{errorAccion}</p>}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {!cargando && !error && (
+          <>
+            <div className="barra">
+              <input
+                className="buscador"
+                type="search"
+                placeholder="Buscar paciente por nombre..."
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
+              <span className="contador">
+                Mostrando {pacientesFiltrados.length} de {pacientes.length} pacientes
+              </span>
+            </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            {busqueda && pacientesFiltrados.length === 0 ? (
+              <p className="vacio">Ningún paciente coincide con la búsqueda.</p>
+            ) : (
+              <PacientesTabla
+                pacientes={pacientesFiltrados}
+                onEditar={setEditando}
+                onEliminar={borrar}
+              />
+            )}
+
+            <PacienteForm
+              key={editando ? editando.id : 'nuevo'}
+              pacienteEditando={editando}
+              onGuardar={guardar}
+              onCancelar={() => setEditando(null)}
+            />
+          </>
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
