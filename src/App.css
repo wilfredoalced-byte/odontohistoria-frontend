@@ -138,3 +138,33 @@ h2 {
   gap: 10px;
   margin-top: 6px;
 }
+
+/* ---------- Sub-paso 3.5: buscador y contador ---------- */
+.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.buscador {
+  flex: 1;
+  min-width: 240px;
+  padding: 10px 14px;
+  border: 1px solid #c9d6d1;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+}
+
+.buscador:focus {
+  outline: 2px solid #3a9d6e;
+  border-color: transparent;
+}
+
+.contador {
+  color: #5f6f6a;
+  font-size: 0.9rem;
+}

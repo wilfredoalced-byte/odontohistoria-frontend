@@ -16,6 +16,7 @@ function App() {
   const [error, setError] = useState('');
   const [errorAccion, setErrorAccion] = useState('');
   const [editando, setEditando] = useState(null);
+  const [busqueda, setBusqueda] = useState('');
 
   // Al abrir la página: pide los pacientes al backend
   useEffect(() => {
@@ -26,6 +27,11 @@ function App() {
       )
       .finally(() => setCargando(false));
   }, []);
+
+  // OPERACIÓN 11: dato derivado del estado, la lista filtrada por la búsqueda
+  const pacientesFiltrados = pacientes.filter((p) =>
+    (p.nombre || '').toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   // CREATE o UPDATE, según haya un paciente en edición
   async function guardar(datos) {
@@ -68,11 +74,29 @@ function App() {
 
         {!cargando && !error && (
           <>
-            <PacientesTabla
-              pacientes={pacientes}
-              onEditar={setEditando}
-              onEliminar={borrar}
-            />
+            <div className="barra">
+              <input
+                className="buscador"
+                type="search"
+                placeholder="Buscar paciente por nombre..."
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
+              <span className="contador">
+                Mostrando {pacientesFiltrados.length} de {pacientes.length} pacientes
+              </span>
+            </div>
+
+            {busqueda && pacientesFiltrados.length === 0 ? (
+              <p className="vacio">Ningún paciente coincide con la búsqueda.</p>
+            ) : (
+              <PacientesTabla
+                pacientes={pacientesFiltrados}
+                onEditar={setEditando}
+                onEliminar={borrar}
+              />
+            )}
+
             <PacienteForm
               key={editando ? editando.id : 'nuevo'}
               pacienteEditando={editando}
