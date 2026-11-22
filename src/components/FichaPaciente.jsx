@@ -2,8 +2,9 @@ import { useState } from 'react';
 import Odontograma from './Odontograma';
 import Tratamientos from './Tratamientos';
 import Consentimientos from './Consentimientos';
+import AnalisisIA from './AnalisisIA';
 
-const PESTANAS = ['Odontograma', 'Tratamientos', 'Consentimientos'];
+const PESTANAS = ['Odontograma', 'Tratamientos', 'Consentimientos', 'IA (apoyo)'];
 
 function FichaPaciente({ paciente, onCerrar }) {
   const [pestana, setPestana] = useState('Odontograma');
@@ -35,6 +36,7 @@ function FichaPaciente({ paciente, onCerrar }) {
       {pestana === 'Odontograma' && <Odontograma key={paciente.id} pacienteId={paciente.id} />}
       {pestana === 'Tratamientos' && <Tratamientos key={paciente.id} pacienteId={paciente.id} />}
       {pestana === 'Consentimientos' && <Consentimientos key={paciente.id} pacienteId={paciente.id} />}
+      {pestana === 'IA (apoyo)' && <AnalisisIA key={paciente.id} />}
     </section>
   );
 }

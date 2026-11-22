@@ -343,3 +343,12 @@ h2 {
 .consentimiento small {
   color: #5f6f6a;
 }
+
+/* ---------- IA de apoyo (caries) ---------- */
+.ia-foto { margin: 12px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.ia-foto img { max-width: 100%; max-height: 320px; border-radius: 8px; }
+.ia-resultado { margin-top: 12px; padding: 12px 14px; border-radius: 8px; border: 1px solid; }
+.ia-resultado h4 { margin: 0 0 4px; }
+.ia-resultado p { margin: 0 0 6px; }
+.ia-alerta { background: #fdecea; border-color: #e57373; color: #7f1d1d; }
+.ia-ok { background: #e8f5e9; border-color: #81c784; color: #14532d; }
