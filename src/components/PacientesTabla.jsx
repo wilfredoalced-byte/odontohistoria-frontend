@@ -1,5 +1,5 @@
 // OPERACIÓN 11: componente que recibe datos y funciones por "props"
-function PacientesTabla({ pacientes, onEditar, onEliminar }) {
+function PacientesTabla({ pacientes, onEditar, onEliminar, onVerFicha }) {
   if (pacientes.length === 0) {
     return <p className="vacio">No hay pacientes registrados.</p>;
   }
@@ -23,6 +23,9 @@ function PacientesTabla({ pacientes, onEditar, onEliminar }) {
             <td>{paciente.motivoConsulta}</td>
             <td>{paciente.proximaCita}</td>
             <td className="acciones">
+              <button className="btn btn-principal" onClick={() => onVerFicha(paciente)}>
+                Ficha
+              </button>
               <button className="btn" onClick={() => onEditar(paciente)}>
                 Editar
               </button>
