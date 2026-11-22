@@ -7,6 +7,7 @@ import {
 } from './api';
 import PacientesTabla from './components/PacientesTabla';
 import PacienteForm from './components/PacienteForm';
+import FichaPaciente from './components/FichaPaciente';
 import './App.css';
 
 // OPERACIÓN 11: componente principal del panel, con estado y efectos de React
@@ -17,6 +18,7 @@ function App() {
   const [errorAccion, setErrorAccion] = useState('');
   const [editando, setEditando] = useState(null);
   const [busqueda, setBusqueda] = useState('');
+  const [fichaAbierta, setFichaAbierta] = useState(null);
 
   // Al abrir la página: pide los pacientes al backend
   useEffect(() => {
@@ -53,6 +55,7 @@ function App() {
       await eliminarPaciente(paciente.id);
       setPacientes(pacientes.filter((p) => p.id !== paciente.id));
       if (editando && editando.id === paciente.id) setEditando(null);
+      if (fichaAbierta && fichaAbierta.id === paciente.id) setFichaAbierta(null);
       setErrorAccion('');
     } catch (e) {
       setErrorAccion(e.message);
@@ -94,6 +97,14 @@ function App() {
                 pacientes={pacientesFiltrados}
                 onEditar={setEditando}
                 onEliminar={borrar}
+                onVerFicha={setFichaAbierta}
+              />
+            )}
+
+            {fichaAbierta && (
+              <FichaPaciente
+                paciente={fichaAbierta}
+                onCerrar={() => setFichaAbierta(null)}
               />
             )}
 

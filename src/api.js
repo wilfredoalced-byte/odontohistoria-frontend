@@ -39,3 +39,62 @@ export function eliminarPaciente(id) {
     method: 'DELETE',
   }).then(manejarRespuesta);
 }
+
+// ---------- Ficha del paciente: odontograma, tratamientos y consentimientos ----------
+export function obtenerOdontograma(pacienteId) {
+  return fetch(`${API_URL}/pacientes/${pacienteId}/odontograma`).then(manejarRespuesta);
+}
+
+export function marcarPieza(pacienteId, pieza, estado) {
+  return fetch(`${API_URL}/pacientes/${pacienteId}/odontograma/${pieza}`, {
+    method: 'PUT',
+    headers: CABECERAS,
+    body: JSON.stringify({ estado }),
+  }).then(manejarRespuesta);
+}
+
+export function quitarPieza(pacienteId, pieza) {
+  return fetch(`${API_URL}/pacientes/${pacienteId}/odontograma/${pieza}`, {
+    method: 'DELETE',
+  }).then(manejarRespuesta);
+}
+
+export function obtenerTratamientos(pacienteId) {
+  return fetch(`${API_URL}/tratamientos?pacienteId=${pacienteId}`).then(manejarRespuesta);
+}
+
+export function crearTratamiento(tratamiento) {
+  return fetch(`${API_URL}/tratamientos`, {
+    method: 'POST',
+    headers: CABECERAS,
+    body: JSON.stringify(tratamiento),
+  }).then(manejarRespuesta);
+}
+
+export function actualizarTratamiento(id, cambios) {
+  return fetch(`${API_URL}/tratamientos/${id}`, {
+    method: 'PUT',
+    headers: CABECERAS,
+    body: JSON.stringify(cambios),
+  }).then(manejarRespuesta);
+}
+
+export function eliminarTratamiento(id) {
+  return fetch(`${API_URL}/tratamientos/${id}`, { method: 'DELETE' }).then(manejarRespuesta);
+}
+
+export function obtenerTextosConsentimiento() {
+  return fetch(`${API_URL}/consentimientos/textos`).then(manejarRespuesta);
+}
+
+export function obtenerConsentimientos(pacienteId) {
+  return fetch(`${API_URL}/pacientes/${pacienteId}/consentimientos`).then(manejarRespuesta);
+}
+
+export function guardarConsentimiento(pacienteId, tipo, aceptado) {
+  return fetch(`${API_URL}/pacientes/${pacienteId}/consentimientos/${tipo}`, {
+    method: 'PUT',
+    headers: CABECERAS,
+    body: JSON.stringify({ aceptado }),
+  }).then(manejarRespuesta);
+}

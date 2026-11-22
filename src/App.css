@@ -168,3 +168,178 @@ h2 {
   color: #5f6f6a;
   font-size: 0.9rem;
 }
+
+/* ---------- Ficha del paciente ---------- */
+.ficha {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-top: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.ficha-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ficha-cabecera h3 {
+  margin: 0 0 4px;
+}
+
+.ficha-cabecera p {
+  margin: 0;
+  color: #5f6f6a;
+}
+
+.pestanas {
+  display: flex;
+  gap: 4px;
+  margin: 18px 0 20px;
+  border-bottom: 2px solid #edf2f0;
+}
+
+.pestana {
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  font-size: 0.95rem;
+  color: #5f6f6a;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+
+.pestana.activa {
+  color: #2f8459;
+  font-weight: 600;
+  border-bottom-color: #3a9d6e;
+}
+
+/* ---------- Odontograma ---------- */
+.odontograma {
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+.odo-fila {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  min-width: max-content;
+}
+
+.odo-separador {
+  height: 2px;
+  background: #c9d6d1;
+  margin: 12px 0;
+}
+
+.diente {
+  width: 42px;
+  height: 52px;
+  border-radius: 10px 10px 16px 16px;
+  border: 2px solid #c9d6d1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: white;
+  color: #1f2d2a;
+}
+
+.diente:hover {
+  transform: translateY(-2px);
+}
+
+.diente-caries {
+  background: #fbebe9;
+  border-color: #c1443d;
+  color: #c1443d;
+}
+
+.diente-tratado {
+  background: #e3f0fb;
+  border-color: #2f7cc1;
+  color: #2f7cc1;
+}
+
+.leyenda {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.muestra {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 2px solid #c9d6d1;
+  vertical-align: middle;
+}
+
+.pista {
+  color: #5f6f6a;
+  font-size: 0.85rem;
+}
+
+/* ---------- Tratamientos y consentimientos ---------- */
+.formulario-linea {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  box-shadow: none;
+  border: 1px solid #edf2f0;
+  padding: 16px;
+}
+
+.formulario-linea label {
+  flex: 1;
+  min-width: 180px;
+  margin-bottom: 0;
+}
+
+.estado {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #c9d6d1;
+  font-size: 0.9rem;
+}
+
+.estado-pendiente { background: #fff6e0; }
+.estado-en-curso { background: #e3f0fb; }
+.estado-realizado { background: #e7f5ef; }
+
+.consentimiento {
+  border: 1px solid #edf2f0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+
+.consentimiento h4 {
+  margin: 0 0 8px;
+}
+
+.consentimiento p {
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.consentimiento small {
+  color: #5f6f6a;
+}
