@@ -15,7 +15,7 @@ Panel web de la clínica dental **Fassiara**. Permite gestionar pacientes y su f
 
 ## Cómo abrirlo y ejecutarlo (paso a paso)
 
-**Requisitos:** [Node.js](https://nodejs.org) 18 o superior y Git. El panel necesita el **backend encendido** para mostrar datos.
+**Requisitos:** [Node.js](https://nodejs.org) **20.19 o superior** (se probó con la 22; el panel usa Vite 8, que no funciona con Node 18) y Git. El panel necesita el **backend encendido** para mostrar datos.
 
 1. **Encender el backend** (en otra terminal):
    ```bash
