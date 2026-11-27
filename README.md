@@ -61,6 +61,8 @@ Rendimiento del modelo en 921 fotos de prueba: exactitud 87.7 %, precisión 81.0
 
 ### Evidencia de prueba (22/11/2026)
 
+Las dos fotos de prueba están en [`docs/fotos_prueba/`](docs/fotos_prueba): se pueden descargar y subir en la pestaña IA para repetir la prueba.
+
 | Foto de prueba | Resultado en el panel |
 |---|---|
 | `prueba_con_caries.jpg` | Posible caries detectada — 91.0 % |
